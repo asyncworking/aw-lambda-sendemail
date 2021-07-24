@@ -2,10 +2,8 @@ version: 0.2
 
 env:
   parameter-store:
-  # REGION: 
-    EXEC_ROLE: "EMAIL_FUNCTION_ROLE"
-  # ZIPFILE: 
-    FUNCTION_NAME: "EMAIL_FUNCTION_NAME"
+    EXEC_ROLE: "AW_VERIFICATION_EMAIL_ROLE"
+    FUNCTION_NAME: "AW_VERIFICATION_EMAIL_NAME"
 
 phases: 
   pre_build: 
