@@ -13,8 +13,8 @@ exports.handler = function(event, context) {
   // Create sendEmail params
   const params = {
     Destination: {
-    //  ToAddresses: [email]
-    ToAddresses: ["test@gmail.com"]
+      ToAddresses: [email]
+      //ToAddresses: ["test@gmail.com"]
     },
     Message: {
       Body: {
@@ -27,7 +27,7 @@ exports.handler = function(event, context) {
         Charset: "UTF-8",
         Data: "Thanks for registering with AsyncWorking!"
       }
-    },
+    }
     Source: "info@asyncworking.com",
   };
 
