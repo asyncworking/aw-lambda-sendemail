@@ -1,0 +1,20 @@
+version: 0.2
+
+env:
+  parameter-store:
+    EXEC_ROLE: "AW_VERIFICATION_EMAIL_ROLE"
+    FUNCTION_NAME: "AW_VERIFICATION_EMAIL_NAME"
+
+phases: 
+  pre_build: 
+    commands: 
+      - pwd
+      - ls
+      #- zip SendingEmail.zip sending_email.js
+  build: 
+    commands: 
+      - pwd
+      - ls
+      - zip Sending_Email.zip sending_email.js
+      - ls 
+      - aws lambda create-function --function-name $FUNCTION_NAME --runtime nodejs12.x --memory-size 128 --timeout 3 --zip-file "fileb://Sending_Email.zip" --handler $FUNCTION_NAME.handler --role $EXEC_ROLE --region ap-southeast-2 || aws lambda update-function-code --function-name $FUNCTION_NAME --zip-file "fileb://Sending_Email.zip"  --region ap-southeast-2   
