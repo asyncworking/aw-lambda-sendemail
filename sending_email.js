@@ -26,7 +26,7 @@ exports.handler = function(event, context) {
         Charset: "UTF-8",
         Data: "Thanks for registering with AsyncWorking!"
       }
-    }
+    },
     Source: "info@asyncworking.com",
   };
 
