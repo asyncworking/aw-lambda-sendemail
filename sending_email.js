@@ -13,7 +13,8 @@ exports.handler = function(event, context) {
   // Create sendEmail params
   const params = {
     Destination: {
-      ToAddresses: [email]
+    //  ToAddresses: [email]
+    ToAddresses: ["test@gmail.com"]
     },
     Message: {
       Body: {
