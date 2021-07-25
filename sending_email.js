@@ -14,7 +14,6 @@ exports.handler = function(event, context) {
   const params = {
     Destination: {
       ToAddresses: [email]
-      //ToAddresses: ["test@gmail.com"]
     },
     Message: {
       Body: {
