@@ -6,16 +6,19 @@ env:
     FUNCTION_NAME: "AW_VERIFICATION_EMAIL_NAME"
   variables:
     HANDLER: "sending_email"
+    Q_NAME: "AWVerificationEmailBasicPP"
 
 phases: 
   pre_build: 
     commands: 
       - pwd
-      - ls
-      #- zip SendingEmail.zip sending_email.js
+      - ls 
+      - aws sqs create-queue --queue-name $Q_NAME   
   build: 
     commands: 
       - hostname
       - ls
       - zip Sending_Email.zip sending_email.js
-      - aws lambda create-function --function-name $FUNCTION_NAME --runtime nodejs14.x --memory-size 128 --timeout 3 --zip-file "fileb://Sending_Email.zip" --handler $HANDLER.handler --role $EXEC_ROLE --region $AWS_DEFAULT_REGION || aws lambda update-function-code --function-name $FUNCTION_NAME --zip-file "fileb://Sending_Email.zip" --region $AWS_DEFAULT_REGION  
+      - aws lambda create-function --function-name $FUNCTION_NAME --runtime nodejs14.x --memory-size 128 --timeout 3 --zip-file "fileb://Sending_Email.zip" --handler $HANDLER.handler --role $EXEC_ROLE --region $AWS_DEFAULT_REGION || aws lambda update-function-code --function-name $FUNCTION_NAME --zip-file "fileb://Sending_Email.zip" --region $AWS_DEFAULT_REGION
+      # create new lambda || update lambda code
+      - aws lambda create-event-source-mapping --function-name $FUNCTION_NAME --event-source-arn arn:aws:sqs:ap-southeast-2:245866473499:$Q_NAME || echo "trigger already exists"
