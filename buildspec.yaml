@@ -17,4 +17,4 @@ phases:
       - ls
       - zip Sending_Email.zip sending_email.js
       - ls 
-      - aws lambda create-function --function-name $FUNCTION_NAME --runtime nodejs12.x --memory-size 128 --timeout 3 --zip-file "fileb://Sending_Email.zip" --handler $FUNCTION_NAME.handler --role $EXEC_ROLE --region ap-southeast-2 || aws lambda update-function-code --function-name $FUNCTION_NAME --zip-file "fileb://Sending_Email.zip"  --region ap-southeast-2   
+      - aws lambda create-function --function-name $FUNCTION_NAME --runtime nodejs14.x --memory-size 128 --timeout 3 --zip-file "fileb://Sending_Email.zip" --handler sending_email.handler --role $EXEC_ROLE --region ap-southeast-2 || aws lambda update-function-code --function-name $FUNCTION_NAME --zip-file "fileb://Sending_Email.zip"  --region ap-southeast-2   
