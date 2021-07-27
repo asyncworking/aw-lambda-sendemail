@@ -1,16 +1,25 @@
 console.log('Loading function');
 const AWS = require("aws-sdk");
 
+const SSM = new AWS.SSM();
 exports.handler = function(event, context) {
   AWS.config.update({ region: "ap-southeast-2" });
   console.log('Handling confirmation email to', event);
-
-  const email = event.Records[0].messageAttributes.email.stringValue;
+  //const source="";
+ // const ssm = new (require('aws-sdk/clients/ssm'))();
+  const data = SSM.getParameter({
+    "Name": "AW_OFFICIAL_EMAIL"
+   }).promise().then(function(data) {
+   //   console.log('parameter: ' + data.Parameter.Value);
+  const source = data.Parameter.Value;
+     const email = event.Records[0].messageAttributes.email.stringValue;
   const userName = event.Records[0].messageAttributes.userName.stringValue;
   const verificationLink = event.Records[0].messageAttributes.verificationLink.stringValue;
   
   console.log('EMAIL IS: ', email);
   // Create sendEmail params
+  console.log(JSON.stringify(data)); 
+  
   const params = {
     Destination: {
       ToAddresses: [email]
@@ -27,7 +36,7 @@ exports.handler = function(event, context) {
         Data: "Thanks for registering with AsyncWorking!"
       }
     },
-    Source: "info@asyncworking.com",
+    Source: source,
   };
 
   // Create the promise and SES service object
@@ -44,4 +53,8 @@ exports.handler = function(event, context) {
       console.error(err, err.stack);
       context.done(null, "Failed");
     });
+    });
+  
+  
+
 };
