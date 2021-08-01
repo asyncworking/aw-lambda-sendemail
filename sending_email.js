@@ -1,47 +1,67 @@
-console.log('Loading function');
 const AWS = require("aws-sdk");
+const recSqsURL = "https://sqs.ap-southeast-2.amazonaws.com/570799447044/receive_queue";
+const bktParams = {
+    Bucket: 'email-template-bkt',
+    Key: 'email_template.txt'
+};
+const sourceEmail = "can774899203@gmail.com";
 
-exports.handler = function(event, context) {
-  AWS.config.update({ region: "ap-southeast-2" });
-  console.log('Handling confirmation email to', event);
+exports.handler = async (event) => {
+    AWS.config.update({ region: "ap-southeast-2" });
+    const { email, userName, verificationLink } = JSON.parse(event.Records[0].body);
+    console.log('EMAIL IS: ', email,', UserName is: ',userName,' ,link is: ',verificationLink);
+    const s3 = new AWS.S3();
+    const template = await s3.getObject(bktParams).promise();
+    const htmlStr = template.Body.toString();
+    console.log('htmlStr: ',htmlStr);
 
-  const email = event.Records[0].messageAttributes.email.stringValue;
-  const userName = event.Records[0].messageAttributes.userName.stringValue;
-  const verificationLink = event.Records[0].messageAttributes.verificationLink.stringValue;
-  
-  console.log('EMAIL IS: ', email);
-  // Create sendEmail params
-  const params = {
-    Destination: {
-      ToAddresses: [email]
-    },
-    Message: {
-      Body: {
-        Html: {
-          Charset: "UTF-8",
-          Data: `<!DOCTYPE html>\r\n    <html>\r\n      <head>\r\n        <title>Demo Title<\/title>\r\n      <\/head>\r\n      <body>\r\n        <p>Hi ${userName},<\/p >\r\n        <p>Please click the link below to verify ${email}.<\/p >\r\n        <a href= ${verificationLink}>Click here!<\/a >\r\n      <\/body>\r\n    <\/html>`,
-        }
-      },
-      Subject: {
-        Charset: "UTF-8",
-        Data: "Thanks for registering with AsyncWorking!"
-      }
-    },
-    Source: "info@asyncworking.com",
-  };
+    // Create sendEmail params
+    const sesParams = {
+        Destination: {
+            ToAddresses: [email],
+        },
+        Message: {
+            Body: {
+                Html: {
+                    Charset: 'UTF-8',
+                    Data: eval(`\`${htmlStr}\``),
+                },
+            },
+            Subject: {
+                Charset: 'UTF-8',
+                Data: 'Thanks for registering with AsyncWorking!',
+            },
+        },
+        Source: sourceEmail,
+    };
 
-  // Create the promise and SES service object
-  const sendPromise = new AWS.SES({ apiVersion: "2010-12-01" })
-    .sendEmail(params)
-    .promise();
+    //
+    const sqsParams = {
+        MessageBody: email,
+        QueueUrl: recSqsURL
+    };
 
-  // Handle promise's fulfilled/rejected states
-  sendPromise
-    .then(data => {
-      context.done(null, "Success");
-    })
-    .catch(err => {
-      console.error(err, err.stack);
-      context.done(null, "Failed");
+    const sqs = new AWS.SQS({apiVersion: '2012-11-05'});
+    const ses = new AWS.SES({ apiVersion: '2010-12-01' });
+
+    const sesPromise = ses.sendEmail(sesParams).promise();
+
+    const sqsPromise = sesPromise.then(()=>{
+        return new Promise((resolve,reject)=>{
+            sqs.sendMessage(sqsParams,(err, data)=>{
+                if (err) {
+                    console.log(err);
+                    reject(err);
+                } else {
+                    console.log("Success", data.MessageId);
+                    resolve("success");
+                }
+            });
+        });
+    },reason=>{
+        throw reason;
     });
+
+    return sqsPromise;
+
 };
