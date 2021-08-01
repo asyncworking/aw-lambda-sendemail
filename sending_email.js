@@ -1,10 +1,10 @@
 const AWS = require("aws-sdk");
-const recSqsURL = "https://sqs.ap-southeast-2.amazonaws.com/570799447044/receive_queue";
+const recSqsURL = "https://sqs.ap-southeast-2.amazonaws.com/245866473499/AW_RECEIVE_Q";
 const bktParams = {
-    Bucket: 'email-template-bkt',
+    Bucket: 'aw-email-template',
     Key: 'email_template.txt'
 };
-const sourceEmail = "can774899203@gmail.com";
+const sourceEmail = "info@asyncworking.com";
 
 exports.handler = async (event) => {
     AWS.config.update({ region: "ap-southeast-2" });
