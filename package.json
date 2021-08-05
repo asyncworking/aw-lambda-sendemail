@@ -1,0 +1,17 @@
+{
+  "name": "localstack-sqs",
+  "version": "1.0.0",
+  "description": "localstack sqs",
+  "main": "sqs-localtest.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "localstack-sqs"
+  ],
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "aws-sdk": "^2.871.0"
+  }
+}

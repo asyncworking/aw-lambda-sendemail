@@ -1,5 +1,5 @@
 const AWS = require("aws-sdk");
-exports.handler = (event) => {
+exports.handler = async (event) => {
     AWS.config.update({ 
         region: "ap-southeast-2", 
         // endpoint: 'http://localhost:4566', // delete in prod
@@ -18,5 +18,5 @@ exports.handler = (event) => {
             .then(
             data => console.log("++++++++++++++Successfully call sqs api", data.MessageId),
             err => console.log("!!!!!!!!!!!SQS Error: ", err))
-    return result;     
+    return await result;     
 };

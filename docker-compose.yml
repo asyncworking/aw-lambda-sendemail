@@ -1,4 +1,4 @@
-version: "3.8"
+version: "2.1"
 
 services:
   localstack:
@@ -6,11 +6,12 @@ services:
     image: localstack/localstack
     network_mode: bridge
     ports:
-      - "127.0.0.1:4566:4566"
-      # - "127.0.0.1:4571:4571"
-      # - "127.0.0.1:${PORT_WEB_UI-8087}:${PORT_WEB_UI-8087}"
+      - "4566:4566"
+      - "4571:4571"
+      - "${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}"
     environment:
       - DEFAULT_REGION=ap-southeast-2
+      - EDGE_PORT=4566
       - NODE_TLS_REJECT_UNAUTHORIZED=0
       - SERVICES=lambda, sqs, s3, ses, events
       - DEBUG=1
