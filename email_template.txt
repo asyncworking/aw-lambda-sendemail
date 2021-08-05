@@ -1,0 +1,1 @@
+<!DOCTYPE html>\r\n    <html>\r\n      <head>\r\n        <title>Demo Title<\/title>\r\n      <\/head>\r\n      <body>\r\n        <p>Hi ${userName},<\/p >\r\n        <p>Please click the link below to verify ${email}.<\/p >\r\n        <a href= ${verificationLink}>Click here!<\/a >\r\n      <\/body>\r\n    <\/html>
