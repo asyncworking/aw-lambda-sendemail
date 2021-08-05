@@ -1,8 +1,0 @@
-{
-  "aws": {
-    "accessKeyId": "test",
-    "secretAccessKey": "test",
-    "region": "ap-southeast-2"
-  },
-  "slackWebhook": ""
-}
