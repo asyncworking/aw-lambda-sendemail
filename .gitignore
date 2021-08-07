@@ -4,16 +4,16 @@
 # IDE related
 .idea
 .vscode
+#output log
+
+/sendEmailLambda/output
 
 # dependencies
-/node_modules
-
+/sendEmailLambda/node_modules
 
 # testing
-/coverage
+/sendEmailLambda/coverage
 
-# production
-/build
 
 # misc
 .DS_Store

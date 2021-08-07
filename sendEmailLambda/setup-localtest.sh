@@ -29,31 +29,44 @@ awslocal s3 cp email_template.txt s3://aw-email-template
 ## Check value of S3 Bucket key
 # awslocal s3api get-object --bucket aw-email-template --key email_template.txt output.txt
 
-sleep 1
+
 # Create lambda
 # In order to mount a local folder, ensure that LAMBDA_REMOTE_DOCKER is set to false then set the S3 bucket name to __local__ or BUCKET_MARKER_LOCAL if it is set, and the S3 key to your local path:
 # --code S3Bucket="__local__",S3Key="/my/local/lambda/folder" 
 # OR 
 # zip your lambda function and use the zip instead of mount to local folder
 
-zip -r -D function.zip sending_email.js
-#awslocal lambda delete-function --function-name lambdaSendEmail
+zip -r -D function.zip index.js
+awslocal lambda delete-function --function-name lambdaSendEmail
+
+sleep 2
+
 awslocal lambda create-function --function-name lambdaSendEmail \
---zip-file fileb://function.zip \
+--code S3Bucket="__local__",S3Key="$(pwd)" \
 --runtime nodejs12.x \
 --memory-size 128 \
---handler sending_email.handler \
+--handler index.handler \
+--timeout 10 \
 --role anyrole
---code S3Bucket="__local__",S3Key="$(pwd)" \
+# --zip-file fileb://function.zip \
 
+awslocal lambda update-function-configuration --function-name lambdaSendEmail \
+    --environment "Variables={
+        region=ap-southeast-2,
+        endpoint=http://localhost:4566,
+        AWS_ACCESS_KEY_ID=test,
+        AWS_SECRET_ACCESS_KEY=test,
+        sourceEmail=info@asyncworking.com,
+        s3Key=email_template.txt,
+        s3Bucket=aw-email-template,
+        sqsQueueUrl=http://localhost:4566/000000000000/AWRECEIVEQ,
+        sesLocalEndpoint=http://localhost:9001
+        }"
 # awslocal lambda update-function-code --function-name lambdaSendEmail --code S3Bucket="__local__",S3Key="$(pwd)"
 
 sleep 1
 # awslocal lambda list-functions --endpoint http://127.0.0.1:4566
 # Update lambda configuration
-awslocal lambda update-function-configuration --function-name lambdaSendEmail \
-    --environment "Variables={
-        accessKeyId=test, secretAccessKey=test, region=ap-southeast-2}"
 
 sleep 1
 awslocal lambda create-event-source-mapping \
