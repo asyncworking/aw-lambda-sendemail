@@ -6,7 +6,7 @@ env:
     FUNCTION_NAME: "AW_VERIFICATION_EMAIL_NAME"
     SQS_ARN: "AW_SQS_ARN_PREFIX"
   variables:
-    HANDLER: "sending_email"
+    HANDLER: "index"
     Q_NAME: "AWVerificationEmailBasicPP"
 
 phases: 
@@ -19,8 +19,8 @@ phases:
     commands: 
       - hostname
       - ls
-      - zip Sending_Email.zip sending_email.js
-      - aws lambda create-function --function-name $FUNCTION_NAME --runtime nodejs14.x --memory-size 128 --timeout 3 --zip-file "fileb://Sending_Email.zip" --handler $HANDLER.handler --role $EXEC_ROLE --region $AWS_DEFAULT_REGION || aws lambda update-function-code --function-name $FUNCTION_NAME --zip-file "fileb://Sending_Email.zip" --region $AWS_DEFAULT_REGION
+      - zip Sending_Email.zip index.js
+      - aws lambda create-function --function-name $FUNCTION_NAME --runtime nodejs12.x --memory-size 128 --timeout 10 --zip-file "fileb://Sending_Email.zip" --handler $HANDLER.handler --role $EXEC_ROLE --region $AWS_DEFAULT_REGION || aws lambda update-function-code --function-name $FUNCTION_NAME --zip-file "fileb://Sending_Email.zip" --region $AWS_DEFAULT_REGION
       # create new lambda || update lambda code
       - aws lambda create-event-source-mapping --function-name $FUNCTION_NAME --event-source-arn $SQS_ARN$Q_NAME || echo "trigger alread exists"  
       # create event trigger for lambda || trigger already exists

@@ -25,7 +25,7 @@ exports.sendToEmail = async (emailTemplate, email, userName, verificationLink, A
         Source: sourceEmail,
     };
 
-    const ses = new AWS.SES({ apiVersion: '2010-12-01', endpoint: process.env.sesLocalEndpoint});
+    const ses = new AWS.SES({ apiVersion: '2010-12-01', endpoint: process.env.ses_endpoint});
     const sesPromise = ses.sendEmail(sesParams).promise();
     
     const sqsParams = {
@@ -33,7 +33,7 @@ exports.sendToEmail = async (emailTemplate, email, userName, verificationLink, A
         QueueUrl: process.env.sqsQueueUrl //'https://sqs.ap-southeast-2.amazonaws.com/251160855904/email_dead' 
     };
 
-    const sqs = new AWS.SQS({apiVersion: '2012-11-05', endpoint: process.env.endpoint});
+    const sqs = new AWS.SQS({ apiVersion: '2012-11-05', endpoint: process.env.sqs_endpoint});
     const sqsPromise = sesPromise.then(()=>{
         return new Promise((resolve,reject)=>{
             sqs.sendMessage(sqsParams,(err, data)=>{

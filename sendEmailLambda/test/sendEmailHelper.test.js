@@ -3,7 +3,7 @@ const sendEmailHelper = require( '../sendEmailHelper.js');
 
 describe('sendEmailHelper Function', () => {
     it("function should return SQS message has been sent when given email template, destination email, user name, verification link", async () => {
-        const emailTemplate = "some template string";
+        const emailTemplate = "wrong template string";
         const email = "test@test.com";
         const userName = "John Doe";
         const verificationLink = "some link string";
