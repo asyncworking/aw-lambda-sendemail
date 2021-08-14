@@ -1,13 +1,18 @@
 # aw-lambda-sendemail
 
+The architecture is deployed as following:
+
+[<img src="./email-lambda.jpg">]()
+
+The following steps demonstrate how to implement and test in local environment.
+
 git clone this project and cd to the folder sendEmailLambda
 
 `cd sendEmailLambda`
 
-## Localstack
 ### step 1: 
 
-Install localstack via docker by running docker compose up
+Install **localstack** via docker by running docker compose up
 Localstack helps you develop your services locally. It mocks commonly used AWS services like S3, DynamoDB, Lambda, SNS, SQS, and more. This way you can develop your service against a mock local version of AWS instead of needing a real AWS account.
 
 `docker compose up`
@@ -20,7 +25,6 @@ To do local test integration with aws cloud service, AWS CLI need to be installe
 `pip install aws`
 
 `pip install awscli-local`
-
 
 ### step 3:
 
