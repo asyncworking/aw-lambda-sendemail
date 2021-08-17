@@ -21,7 +21,7 @@ awslocal s3 cp verification_email_template.txt s3://aw-email-template
 # zip -r new-function.zip index.js node_modules/dotenv getTemplateHelper.js sendEmailHelper.js
 
 # delete the lambda function created before for local test
-awslocal lambda delete-function --function-name lambdaSendEmail
+# awslocal lambda delete-function --function-name lambdaSendEmail
 sleep 1
 # create the lambda function 
 awslocal lambda create-function --function-name lambdaSendEmail \
@@ -30,6 +30,7 @@ awslocal lambda create-function --function-name lambdaSendEmail \
 --memory-size 128 \
 --handler index.handler \
 --timeout 10 \
+--region ap-southeast-2 \
 --role anyrole
 
 # aws lambda create-function --function-name new-function \
@@ -80,3 +81,8 @@ awslocal lambda invoke --function-name lambdaSendEmail --payload fileb://payload
 # send message to sqs queue by CLI
 # awslocal --endpoint-url=http://localhost:4566 sqs send-message --queue-url http://localhost:4566/000000000000/AW_RECEIVE_Q --message-body 'Welcome to sandbox'
 # awslocal --endpoint-url=http://localhost:4566 sqs receive-message --queue-url http://localhost:4566/000000000000/AW_RECEIVE_Q
+
+
+# Todo: unit test - test message result as expected
+# awslocal sqs send-message --queue-url http://localhost:4566/000000000000/AW_RECEIVE_Q --message-body "TestMessage" --region ap-southeast-2
+# awslocal sqs receive-message --queue-url http://localhost:4566/000000000000/AW_RECEIVE_Q --region ap-southeast-2

@@ -2,7 +2,7 @@
 
 The architecture is deployed as following:
 
-[<img src="./email-lambda.jpg">]()
+[<img src="./docs/email_lambda.jpg">]()
 
 The following steps demonstrate how to implement and test in local environment.
 
@@ -55,8 +55,8 @@ To test the function:
 
 in the ./output folder, there will be the email logs sent to the end user with the user name, verification link, destination email address previously code into `payload.json` when invoke the lambda function.
 
-[<img src="./Screen Shot 2021-08-14 at 6.27.01 pm.png">]()
+[<img src="./docs/local_aws_ses_running.png">]()
 
 Currently test coverage is 93.94%:
 
-[<img src="./sendEmailLambda/test/Screen Shot 2021-08-14 at 6.06.02 pm.png">]()
+[<img src="./docs/test_coverage.png">]()

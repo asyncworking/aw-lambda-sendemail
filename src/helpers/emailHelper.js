@@ -1,7 +1,22 @@
 require('dotenv').config();
 
-exports.sendToEmail = async (emailTemplate, email, userName, verificationLink, AWS) => {
-    const sourceEmail = process.env.sourceEmail //'info@asyncworking.com'
+exports.sendToEmail = async (emailTemplate, email, userName, verificationLink, templateType, AWS) => {
+    const sourceEmail = process.env.sourceEmail; //'info@asyncworking.com'
+    let emailSubjectString;
+
+    switch(templateType) {
+        case "Verification":
+            emailSubjectString = "Thanks for registering with AsyncWorking!";
+            break;
+        case "Invitation":
+            emailSubjectString = "You are invited to AsyncWorking!";
+            break;
+        case "ForgetPassword":
+            emailSubjectString = "Reset Password from AsyncWorking!";
+            break;
+        default:
+            emailSubjectString = "Message from AsyncWorking";
+    }
 
     const sesParams = {
         Destination: {
@@ -19,7 +34,7 @@ exports.sendToEmail = async (emailTemplate, email, userName, verificationLink, A
             },
             Subject: {
                 Charset: 'UTF-8',
-                Data: 'Thanks for registering with AsyncWorking!',
+                Data: emailSubjectString,
             },
         },
         Source: sourceEmail,

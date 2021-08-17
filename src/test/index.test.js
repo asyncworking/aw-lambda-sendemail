@@ -14,6 +14,5 @@ describe('Lambda Function', () => {
         expect(response.body.toAddress).toEqual("johndoe@test.com");
         expect(response.body.userName).toEqual("John Doe");
         expect(response.body.verificationLink).toEqual("https://somecode.com");
-        // expect(response.data).toEqual(`Queries: ${JSON.stringify(query)}`);
     });
 });
