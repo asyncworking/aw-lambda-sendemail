@@ -6,9 +6,9 @@ The architecture is deployed as following:
 
 The following steps demonstrate how to implement and test in local environment.
 
-git clone this project and cd to the folder sendEmailLambda
+git clone this project and cd to this folder AW-LAMBDA-SENDEMAIL
 
-`cd sendEmailLambda`
+`cd AW-LAMBDA-SENDEMAIL`
 
 ### step 1: 
 
@@ -40,9 +40,9 @@ Please note:
 If not starting this aws-ses-local service, when running the unit test, there will be an error from sendEmailHelper.test.js stating "UnknownEndpoint: Inaccessible host: 'localhost'. This service may not be available in the 'ap-southeast-2' region."
 
 ### step 4:
-Run the script for creating a lambda function, creating required SQS, S3 bucket and invoke it in localstack, which is a mocked AWS environment.
+To run the script for creating a lambda function, the AWS services SQS and S3 bucket should already be created in localstack, which can be done by the following script.
 
-`./lambda-localstack-test.sh`
+`./end_to_end_test/setup-localtest.sh`
 
 ### step 5:
 To start the function:

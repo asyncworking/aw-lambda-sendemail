@@ -4,16 +4,18 @@
 # IDE related
 .idea
 .vscode
-#output log
+# output log
+output
+response.json
 
-/sendEmailLambda/output
+# zip file
+*.zip
 
 # dependencies
-/sendEmailLambda/node_modules
+node_modules/
 
 # testing
-/sendEmailLambda/coverage
-
+coverage
 
 # misc
 .DS_Store

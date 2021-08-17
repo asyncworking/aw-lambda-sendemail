@@ -5,7 +5,7 @@
       "receiptHandle": "MessageReceiptHandle",
       "body": {
         "templateType":"Verification",
-        "templateS3Bucket": "aw-email-template-danni",
+        "templateS3Bucket": "aw-email-template",
         "templateS3Key": "verification_email_template.txt",
         "userName": "John Doe",
         "email": "johndoe@test.com",
