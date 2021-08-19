@@ -23,7 +23,7 @@ exports.handler = async (event) => {
     AWS
   );
 
-  await emailHelper.sendToEmail(
+  const response = await emailHelper.sendToEmail(
     emailTemplateString,
     email,
     userName,
@@ -31,13 +31,15 @@ exports.handler = async (event) => {
     templateType,
     AWS
   );
-
+  
   return {
     statusCode: 200,
     body: {
       toAddress: email,
       userName: userName,
-      verificationLink: verificationLink,
+      templateType: templateType,
+      sesResultId: response.sesResultId,
+      sqsResultId: response.sqsResultId
     },
   };
 };

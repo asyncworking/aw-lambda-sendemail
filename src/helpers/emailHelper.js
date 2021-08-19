@@ -44,20 +44,28 @@ exports.sendToEmail = async (emailTemplate, email, userName, verificationLink, t
     const sesPromise = ses.sendEmail(sesParams).promise();
     
     const sqsParams = {
-        MessageBody: email,
+        MessageBody: '',
         QueueUrl: process.env.sqsQueueUrl //'https://sqs.ap-southeast-2.amazonaws.com/251160855904/email_dead' 
     };
-
     const sqs = new AWS.SQS({ apiVersion: '2012-11-05', endpoint: process.env.sqs_endpoint});
-    const sqsPromise = sesPromise.then(()=>{
+    const sqsPromise = await sesPromise.then( sesResult =>{
+
+        const messageBody = {
+            emailType: templateType,
+            email: email,
+            timeSent: Date.now(),
+            sesResultId: sesResult.MessageId
+        }
+        sqsParams.MessageBody = JSON.stringify(messageBody);
+        
         return new Promise((resolve,reject)=>{
+            const sqsResult = JSON.parse(sqsParams.MessageBody);
             sqs.sendMessage(sqsParams,(err, data)=>{
                 if (err) {
-                    // console.log("SQS send error"+err);
                     reject(err);
                 } else {
-                    // console.log("Success", data.MessageId);
-                    resolve("Success: SQS message has been sent!");
+                    sqsResult.sqsResultId = data.MessageId;
+                    resolve(sqsResult);
                 }
             });
         });

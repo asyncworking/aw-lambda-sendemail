@@ -10,6 +10,10 @@ describe('sendEmailHelper Function', () => {
         const templateType = "Verification";
 
         const response = await emailHelper.sendToEmail(emailTemplate, email, userName, verificationLink, templateType, AWS);
-        expect(response).toEqual("Success: SQS message has been sent!");
+        expect(response).toHaveProperty("email");
+        expect(response).toHaveProperty("emailType");
+        expect(response).toHaveProperty("timeSent");
+        expect(response).toHaveProperty("sesResultId");
+        expect(response).toHaveProperty("sqsResultId");
     });
 });

@@ -38,7 +38,7 @@ awslocal lambda create-function --function-name lambdaSendEmail \
 # --memory-size 128 \
 # --handler index.handler \
 # --timeout 10 \
-# --role "sending_email_permission"
+# --role "arn:aws:iam::251160855904:role/service-role/sending_email_permission"
 
 # update function code
 # aws lambda update-function-code \
