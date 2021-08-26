@@ -19,6 +19,7 @@ phases:
   build: 
     commands: 
       - hostname
+      - npm install
       - ls
       - zip -r $ZIP_FILE src/index.js node_modules/dotenv src/helpers/templateHelper.js src/helpers/emailHelper.js
       #- zip Sending_Email.zip index.js
