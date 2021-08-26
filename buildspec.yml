@@ -6,7 +6,7 @@ env:
     FUNCTION_NAME: "AW_VERIFICATION_EMAIL_NAME"
     SQS_ARN: "AW_SQS_ARN_PREFIX"
   variables:
-    HANDLER: "index"
+    HANDLER: "src/index"
     Q_NAME: "AWVerificationEmailBasicPP"
     ZIP_FILE: "new-function.zip"
 
