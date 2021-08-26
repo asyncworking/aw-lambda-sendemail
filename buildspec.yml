@@ -8,6 +8,7 @@ env:
   variables:
     HANDLER: "index"
     Q_NAME: "AWVerificationEmailBasicPP"
+    ZIP_FILE: "new-function.zip"
 
 phases: 
   pre_build: 
@@ -19,6 +20,8 @@ phases:
     commands: 
       - hostname
       - ls
+      - zip -r $ZIP_FILE src/index.js node_modules/dotenv src/helpers/templateHelper.js src/helpers/emailHelper.js
+      #- zip Sending_Email.zip index.js
       - zip Sending_Email.zip index.js
       - aws lambda create-function --function-name $FUNCTION_NAME --runtime nodejs12.x --memory-size 128 --timeout 10 --zip-file "fileb://Sending_Email.zip" --handler $HANDLER.handler --role $EXEC_ROLE --region $AWS_DEFAULT_REGION || aws lambda update-function-code --function-name $FUNCTION_NAME --zip-file "fileb://Sending_Email.zip" --region $AWS_DEFAULT_REGION
       # create new lambda || update lambda code
