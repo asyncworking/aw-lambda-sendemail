@@ -15,7 +15,7 @@ exports.handler = async (event) => {
     templateType,
     templateS3Bucket,
     templateS3Key,
-  } = event.Records[0].body;
+  } = JSON.parse(event.Records[0].body);
 
   const emailTemplateString = await templateHelper.getTemplateFromS3Bucket(
     templateS3Bucket,
