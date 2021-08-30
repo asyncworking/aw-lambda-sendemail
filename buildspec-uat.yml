@@ -13,7 +13,7 @@ env:
     AW_UAT_RECEIVE_QUEUE: "AW_UAT_RECEIVE_Q"
     ZIP_FILE: "new-function.zip"
     SQS_ENDPOINT_URL: "https://sqs.ap-southeast-2.amazonaws.com/"
-    S3_ENDPOINT_URL: "https://s3.ap-southeast-2.amazonaws.com"
+    S3_ENDPOINT_URL: "https://s2.ap-southeast-2.amazonaws.com/"
     #ENV_ARG: "--environment "Variables={SourceEmail=$AW_EMAIL, SqsQueueUrl=$AW_UAT_RECEIVE_SQS_URL, SQS_ENDPOINT=$SQS_ENDPOINT_URL, S3_ENDPOINT=$S3_ENDPOINT_URL, REGION=ap-southeast-2}"
 
 phases: 
