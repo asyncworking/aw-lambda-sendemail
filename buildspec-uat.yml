@@ -35,4 +35,7 @@ phases:
       - aws lambda create-event-source-mapping --function-name $FUNCTION_NAME --event-source-arn $SQS_ARN$Q_NAME || echo "trigger alread exists"  
       # create event trigger for lambda || trigger already exists
 artifacts:
-  files: $ZIP_FILE
+  files: 
+    - "**/*.zip"
+  discard-paths: yes
+  base-directory: '/' 
