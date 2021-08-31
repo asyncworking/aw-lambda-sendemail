@@ -32,7 +32,7 @@ phases:
       - zip -r $ZIP_FILE src/index.js node_modules/dotenv src/helpers/templateHelper.js src/helpers/emailHelper.js
       #- zip Sending_Email.zip index.js
       - ls
-      - aws lambda create-function --function-name $FUNCTION_NAME --runtime nodejs12.x --memory-size 128 --timeout 10 --zip-file "fileb://$ZIP_FILE" --handler $HANDLER.handler --role $EXEC_ROLE --environment "Variables={sourceEmail=$AW_EMAIL, sqsQueueUrl=$AW_UAT_RECEIVE_SQS_URL, SQS_ENDPOINT=$SQS_ENDPOINT_URL, S3_ENDPOINT=$S3_ENDPOINT_URL, REGION=ap-southeast-2}" --region $AWS_DEFAULT_REGION || aws lambda update-function-code --function-name $FUNCTION_NAME --zip-file "fileb://$ZIP_FILE" --environment "Variables={sourceEmail=$AW_EMAIL, sqsQueueUrl=$AW_UAT_RECEIVE_SQS_URL, SQS_ENDPOINT=$SQS_ENDPOINT_URL, S3_ENDPOINT=$S3_ENDPOINT_URL, REGION=ap-southeast-2}" --region $AWS_DEFAULT_REGION
+      - aws lambda create-function --function-name $FUNCTION_NAME --runtime nodejs12.x --memory-size 128 --timeout 10 --zip-file "fileb://$ZIP_FILE" --handler $HANDLER.handler --role $EXEC_ROLE  --region $AWS_DEFAULT_REGION; aws lambda update-function-configuration --function-name $FUNCTION_NAME --environment "Variables={sourceEmail=$AW_EMAIL, sqsQueueUrl=$AW_UAT_RECEIVE_SQS_URL, SQS_ENDPOINT=$SQS_ENDPOINT_URL, S3_ENDPOINT=$S3_ENDPOINT_URL, REGION=ap-southeast-2}" --region $AWS_DEFAULT_REGION || aws lambda update-function-code --function-name $FUNCTION_NAME --zip-file "fileb://$ZIP_FILE" --environment "Variables={sourceEmail=$AW_EMAIL, sqsQueueUrl=$AW_UAT_RECEIVE_SQS_URL, SQS_ENDPOINT=$SQS_ENDPOINT_URL, S3_ENDPOINT=$S3_ENDPOINT_URL, REGION=ap-southeast-2}" --region $AWS_DEFAULT_REGION
       # create new lambda || update lambda code
       - pwd
       - ls -alh     
