@@ -5,10 +5,15 @@ env:
     EXEC_ROLE: "AW_VERIFICATION_EMAIL_ROLE"
     FUNCTION_NAME: "AW_VERIFICATION_EMAIL_NAME"
     SQS_ARN: "AW_SQS_ARN_PREFIX"
+    AW_EMAIL: "AW_OFFICIAL_EMAIL"
+    AW_RECEIVE_SQS_URL: "Aw_Lambda_Receive_Queue_URL"
   variables:
-    HANDLER: "index"
+    HANDLER: "src/index"
     Q_NAME: "AWVerificationEmailBasicPP"
     ZIP_FILE: "new-function.zip"
+    SQS_ENDPOINT_URL: "https://sqs.ap-southeast-2.amazonaws.com/"
+    S3_ENDPOINT_URL: "https://s3.ap-southeast-2.amazonaws.com"
+    ENV_ARG: "--environment "Variables={SourceEmail=$AW_EMAIL, SqsQueueUrl=$AW_RECEIVE_SQS_URL, SQS_ENDPOINT=$SQS_ENDPOINT_URL, S3_ENDPOINT=$S3_ENDPOINT_URL, REGION=ap-southeast-2}"
 
 phases: 
   pre_build: 
@@ -19,11 +24,14 @@ phases:
   build: 
     commands: 
       - hostname
+      - npm install
       - ls
       - zip -r $ZIP_FILE src/index.js node_modules/dotenv src/helpers/templateHelper.js src/helpers/emailHelper.js
       #- zip Sending_Email.zip index.js
-      - zip Sending_Email.zip index.js
-      - aws lambda create-function --function-name $FUNCTION_NAME --runtime nodejs12.x --memory-size 128 --timeout 10 --zip-file "fileb://Sending_Email.zip" --handler $HANDLER.handler --role $EXEC_ROLE --region $AWS_DEFAULT_REGION || aws lambda update-function-code --function-name $FUNCTION_NAME --zip-file "fileb://Sending_Email.zip" --region $AWS_DEFAULT_REGION
+      - aws lambda create-function --function-name $FUNCTION_NAME --runtime nodejs12.x --memory-size 128 --timeout 10 --zip-file "fileb://$ZIP_FILE" --handler $HANDLER.handler --role $EXEC_ROLE $ENV_ARG --region $AWS_DEFAULT_REGION || aws lambda update-function-code --function-name $FUNCTION_NAME --zip-file "fileb://$ZIP_FILE" $ENV_ARG --region $AWS_DEFAULT_REGION
       # create new lambda || update lambda code
       - aws lambda create-event-source-mapping --function-name $FUNCTION_NAME --event-source-arn $SQS_ARN$Q_NAME || echo "trigger alread exists"  
       # create event trigger for lambda || trigger already exists
+
+
+      
