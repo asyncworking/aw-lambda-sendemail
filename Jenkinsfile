@@ -11,7 +11,7 @@ pipeline {
 		stage ('install awscli'){
 			steps {
 				echo "installing awscli"
-				sh 'apt update'
+				sh 'apt-get update'
 				sh 'apt install python3-pip -y' 
 				sh 'pip3 install awscli --upgrade'
 			}
