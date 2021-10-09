@@ -11,7 +11,7 @@ pipeline {
         stage('create lambda') {
             steps {
                 echo " creating lambda ${LABMDA_EXE_ROLE} ${FUNCTION_NAME} ${ZIPFILE} ${REGION} "
-				sh 'sudo apt install awscli -Y'
+				sh 'apt install awscli -Y'
                 withAWS(credentials: '4b4c942f-2dd7-4c3f-a4ac-0250a775a3df', region:"${REGION}") {
                 // create lambda 
                 sh 'aws lambda create-function --function-name "${FUNCTION_NAME}"  --runtime nodejs14.x --memory-size 128 --timeout 3 --zip-file "fileb://${ZIPFILE}" --handler "${FUNCTION_NAME}".handler --role "${LABMDA_EXE_ROLE}" --region "${REGION}" || echo "function exists"'
