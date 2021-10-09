@@ -8,6 +8,14 @@ pipeline {
        }  
 
     stages {
+		stage ('install awscli'){
+			steps {
+				echo "installing awscli"
+				sh 'apt update'
+				sh 'apt install python3-pip -y' 
+				sh 'pip3 install awscli --upgrade'
+			}
+		}
         stage('create lambda') {
             steps {
                 echo " creating lambda ${LABMDA_EXE_ROLE} ${FUNCTION_NAME} ${ZIPFILE} ${REGION} "
