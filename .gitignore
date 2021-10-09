@@ -22,3 +22,6 @@ coverage
 **/*.local
 
 **/*.log*
+
+# test sample lambda
+random-numbers.zip
