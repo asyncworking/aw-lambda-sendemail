@@ -1,5 +1,9 @@
 pipeline {
-    agent any 
+    agent {
+		docker {
+			image 'node:14'
+		}
+	} 
     environment {
         LABMDA_EXE_ROLE = "arn:aws:iam::245866473499:role/AW_UAT_Verfication_Email_Lambda"
         FUNCTION_NAME = 'random-numbers'
