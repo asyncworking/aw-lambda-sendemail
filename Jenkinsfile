@@ -4,15 +4,16 @@ pipeline {
 			image 'node:14.15.0'
 		}
 	} 
+
     environment {
         LABMDA_EXE_ROLE = "arn:aws:iam::245866473499:role/AW_UAT_Verfication_Email_Lambda"
         FUNCTION_NAME = 'random-numbers'
         ZIPFILE = 'random-numbers.zip'
         REGION= "ap-southeast-2"      
-       }  
+    }  
 
     stages {
-		stage ('install awscli'){
+		stage('install awscli') {
 			steps {
 				echo "installing awscli"
 				sh 'apt-get update'
