@@ -9,18 +9,27 @@ pipeline {
         LABMDA_EXE_ROLE = "arn:aws:iam::245866473499:role/AW_UAT_Verfication_Email_Lambda"
         FUNCTION_NAME = 'random-numbers'
         ZIPFILE = 'random-numbers.zip'
-        REGION= "ap-southeast-2"      
+        //REGION= " "      #set var in Jenkins global config
     }  
 
     stages {
-		stage('install awscli') {
+		// stage('install awscli') {
+		// 	steps {
+		// 		echo "installing awscli"
+		// 		sh 'apt-get update'
+		// 		sh 'apt install python3-pip -y' 
+		// 		sh 'pip3 install awscli --upgrade'
+		// 	}
+		// }
+
+		stage ('parameter store') {
 			steps {
-				echo "installing awscli"
-				sh 'apt-get update'
-				sh 'apt install python3-pip -y' 
-				sh 'pip3 install awscli --upgrade'
+				withAWSParameterStore(credentials: '4b4c942f-2dd7-4c3f-a4ac-0250a775a3df' region:"${AW_REGION}"){
+					echo '${AW_UAT_VERIFICATION_EMAIL_ROLE}'
+				}
 			}
 		}
+
 		stage('Installl Zip') {
 					steps {
 						echo 'Installing zip...'
