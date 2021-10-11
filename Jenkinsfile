@@ -13,14 +13,14 @@ pipeline {
     }  
 
     stages {
-		// stage('install awscli') {
-		// 	steps {
-		// 		echo "installing awscli"
-		// 		sh 'apt-get update'
-		// 		sh 'apt install python3-pip -y' 
-		// 		sh 'pip3 install awscli --upgrade'
-		// 	}
-		// }
+		stage('install awscli') {
+			steps {
+				echo "installing awscli"
+				sh 'apt-get update'
+				sh 'apt install python3-pip -y' 
+				sh 'pip3 install awscli --upgrade'
+			}
+		}
 
 		stage ('parameter store') {
 			steps {
