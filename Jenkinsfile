@@ -24,7 +24,7 @@ pipeline {
 
 		stage ('parameter store') {
 			steps {
-				withAWSParameterStore(credentialsId: '4b4c942f-2dd7-4c3f-a4ac-0250a775a3df', regionName: '${AW_REGION}' ){
+				withAWSParameterStore(credentialsId: '4b4c942f-2dd7-4c3f-a4ac-0250a775a3df',naming: 'basename', regionName: '${AW_REGION}' ){
 					echo $AW_UAT_VERIFICATION_EMAIL_ROLE
 				}
 			}
