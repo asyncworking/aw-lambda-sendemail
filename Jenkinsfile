@@ -15,7 +15,7 @@ pipeline {
         }
         
         stage('Deploy'){
-            Steps{
+            steps{
                 echo "Statr Deploying "
             }
         }
