@@ -3,12 +3,20 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo "Building release..."
+                echo "Start Building ..."
+                sh 'ls -l'
+                
             }
         }
         stage('Test') {
             steps {
-                echo "Testing..."
+                echo "Start Testing..."
+            }
+        }
+        
+        stage('Deploy'){
+            Steps{
+                echo "Statr Deploying "
             }
         }
     }
