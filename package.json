@@ -4,7 +4,7 @@
   "description": "lambda function for sending verification email",
   "main": "sending_email.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node src/index.js",
     "test": "jest --config=jest.config.js --coverage --color --watchAll=false"
   },
   "author": "",
