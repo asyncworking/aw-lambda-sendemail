@@ -3,7 +3,7 @@ require('dotenv').config();
 exports.sendToEmail = async (emailTemplate, email, userName, verificationLink, templateType, AWS) => {
     const sourceEmail = process.env.sourceEmail; //'info@asyncworking.com'
     let emailSubjectString;
-
+    
     switch(templateType) {
         case "Verification":
             emailSubjectString = "Thanks for registering with AsyncWorking!";
@@ -40,14 +40,15 @@ exports.sendToEmail = async (emailTemplate, email, userName, verificationLink, t
         Source: sourceEmail,
     };
 
-    const ses = new AWS.SES({ apiVersion: '2010-12-01', endpoint: process.env.ses_endpoint});
+    const ses = new AWS.SES({ apiVersion: '2010-12-01', endpoint: process.env.ses_endpoint, region: process.env.region});
     const sesPromise = ses.sendEmail(sesParams).promise();
     
     const sqsParams = {
         MessageBody: '',
         QueueUrl: process.env.sqsQueueUrl //'https://sqs.ap-southeast-2.amazonaws.com/251160855904/email_dead' 
     };
-    const sqs = new AWS.SQS({ apiVersion: '2012-11-05', endpoint: process.env.sqs_endpoint});
+    const sqs = new AWS.SQS({ apiVersion: '2012-11-05', endpoint: process.env.sqs_endpoint, region: process.env.region});
+
     const sqsPromise = await sesPromise.then( sesResult =>{
 
         const messageBody = {

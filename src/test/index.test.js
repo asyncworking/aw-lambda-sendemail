@@ -1,7 +1,7 @@
 const AWSMock = require("aws-sdk-mock");
 const AWS = require("aws-sdk");
 const myHandler = require( '../index.js');
-const payload = require('../../end_to_end_test/payload.json');
+const payload = require('../../end_to_end_test/payload').default;
 
 describe('Lambda Function', () => {
 

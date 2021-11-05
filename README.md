@@ -59,4 +59,4 @@ in the ./output folder, there will be the email logs sent to the end user with t
 
 Currently test coverage is 93.94%:
 
-[<img src="./docs/test_coverage.png">]()
+[<img src="./docs/test_coverage_20211105.png">]()
