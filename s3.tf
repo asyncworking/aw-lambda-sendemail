@@ -16,7 +16,7 @@ resource "aws_s3_bucket" "b6" {
 resource "aws_s3_bucket_object" "object6" {
   bucket = "jk-tf-s3-test6"
   key    = "lambda-function/lambda-jk-tf-test6.zip"
-  source = "bash${WORKSPACE}/builds/${BUILD_NUMBER}/lambda-jk-tf-test6.zip" # its mean it depended on zip
+  source = "${WORKSPACE}/builds/${BUILD_NUMBER}/lambda-jk-tf-test6.zip" # its mean it depended on zip
   depends_on = [
     aws_s3_bucket.b6,
   ]
