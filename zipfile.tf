@@ -1,4 +1,4 @@
-Zip the Lamda function on the fly
+# Zip the Lamda function on the fly
 data "archive_file" "source6" {
   type        = "zip"
   source_dir = "lambda-jk-tf-test6.zip"
