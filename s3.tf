@@ -19,6 +19,6 @@ resource "aws_s3_bucket_object" "object6" {
   source = "${data.archive_file.source6.output_path}" # its mean it depended on zip
   depends_on = [
     aws_s3_bucket.b6,
-    archive_file.source6
+    data.archive_file.source6
   ]
 }
