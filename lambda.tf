@@ -13,6 +13,7 @@ resource "aws_lambda_function" "example6" {
   role=aws_iam_role.lambda_exec6.arn
   depends_on = [
     aws_s3_bucket.b6,
+    aws_s3_bucket_object.object6,
   ]
 }
 
