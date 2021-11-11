@@ -12,7 +12,7 @@ resource "aws_s3_bucket" "b6" {
 }
 
 
-Upload zip to s3
+# Upload zip to s3
 resource "aws_s3_bucket_object" "object6" {
   bucket = "jk-tf-s3-test6"
   key    = "lambda-function/lambda-jk-tf-test6.zip"
