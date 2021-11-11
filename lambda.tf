@@ -3,7 +3,7 @@ resource "aws_lambda_function" "example6" {
 
   # The bucket name as created earlier with "aws s3api create-bucket"
   s3_bucket = "jk-tf-s3-test6"
-  s3_key    = "lambda-function/lambda-jk-tf-test.zip"
+  s3_key    = "lambda-function/lambda-jk-tf-test6.zip"
 
   # "main" is the filename within the zip file (main.js) and "handler"
   # is the name of the property under which the handler function was
