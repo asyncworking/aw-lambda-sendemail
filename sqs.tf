@@ -11,9 +11,9 @@ resource "aws_sqs_queue" "cathy_first_sqs6" {
     maxReceiveCount     = 4
   })
 
-  tags {
-    Environment = "uat"
-  }
+  # tags {
+  #   Environment = "uat"
+  # }
 }
 
 resource "aws_sqs_queue" "terraform_queue_deadletter6" {
