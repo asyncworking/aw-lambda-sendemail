@@ -15,6 +15,15 @@
 
 resource "aws_sqs_queue" "cathy_first_sqs6" {
   name = "cathy_first_sqs6"
+  delay_seconds             = 90
+  max_message_size          = 2048
+  message_retention_seconds = 86400
+  receive_wait_time_seconds = 10
+  redrive_policy            = "{\"deadLetterTargetArn\":\"${aws_sqs_queue.terraform_queue_deadletter.arn}\",\"maxReceiveCount\":4}"
+
+  tags {
+    Environment = "uat"
+  }
 }
 
 resource "aws_sqs_queue_policy" "my_sqs_policy6" {
