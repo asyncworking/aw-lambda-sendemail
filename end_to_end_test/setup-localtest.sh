@@ -54,9 +54,9 @@ awslocal lambda update-function-configuration --function-name lambdaSendEmail --
         secretAccessKey=test,
         sourceEmail=info@asyncworking.com,
         sqsQueueUrl=http://localhost:4566/000000000000/AWRECEIVEQ,
-        ses_Endpoint=http://localhost:9001,
-        s3_Endpoint=http://localhost:4566,
-        sqs_Endpoint=http://localhost:4566,
+        ses_Endpoint=http://localhost:4566:9001,
+        s3_Endpoint=http://localhost:4566:4566,
+        sqs_Endpoint=http://localhost:4566:4566,
         }"
 
 # awslocal lambda update-function-code --function-name lambdaSendEmail --code S3Bucket="__local__",S3Key="$(pwd)"
