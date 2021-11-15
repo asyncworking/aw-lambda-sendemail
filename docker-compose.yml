@@ -7,10 +7,10 @@ services:
     network_mode: "host"
     ports:
       - "127.0.0.1:4566:4566"
-      # - "127.0.0.1:4571:4571"
+      - "127.0.0.1:4571:4571"
       # - "127.0.0.1:${PORT_WEB_UI-8087}:${PORT_WEB_UI-8087}"
     environment:
-      - DEFAULT_REGION=ap-southeast-2
+      #- DEFAULT_REGION=ap-southeast-2
       - NODE_TLS_REJECT_UNAUTHORIZED=0
       - SERVICES=lambda, sqs, s3, ses, events
       - DEBUG=1
