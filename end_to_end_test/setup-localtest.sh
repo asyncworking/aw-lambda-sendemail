@@ -2,7 +2,7 @@
 
 # Create sqs queue
 # awslocal sqs create-queue --queue-name AWVerificationEmailBasicPP --region ap-southeast-2
-aws --endpoint-url http://host.docker.internal:4566 sqs create-queue --queue-name AWVerificationEmailBasicPP --region ap-southeast-2
+aws --endpoint-url=http://host.docker.internal:4566 sqs create-queue --queue-name AWVerificationEmailBasicPP --region ap-southeast-2
 echo "###created sqs queue with queue name AWVerificationEmailBasicPP###"
 awslocal sqs create-queue --queue-name AWRECEIVEQ --region ap-southeast-2
 echo "###created sqs queue with queue name AWRECEIVEQ###"
