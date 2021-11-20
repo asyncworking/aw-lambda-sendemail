@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-exports.sendToEmail = async (emailTemplate, email, userName, verificationLink, templateType, AWS) => {
+exports.sendToEmail = async (companyName, companyOwnerName, emailTemplate, email, userName, verificationLink, templateType, AWS) => {
     const sourceEmail = process.env.sourceEmail; //'info@asyncworking.com'
     let emailSubjectString;
     
@@ -14,6 +14,8 @@ exports.sendToEmail = async (emailTemplate, email, userName, verificationLink, t
         case "ForgetPassword":
             emailSubjectString = "Reset Password from AsyncWorking!";
             break;
+        case "CompanyInvitation":
+            emailSubjectString = `You have been invited to join ${companyName} on the AsyncWorking`;
         default:
             emailSubjectString = "Message from AsyncWorking";
     }

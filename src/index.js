@@ -11,6 +11,8 @@ exports.handler = async (event) => {
   const {
     email,
     userName,
+    companyName,
+    companyOwnerName,
     verificationLink,
     templateType,
     templateS3Bucket,
@@ -24,6 +26,8 @@ exports.handler = async (event) => {
   );
 
   const response = await emailHelper.sendToEmail(
+    companyName,
+    companyOwnerName,
     emailTemplateString,
     email,
     userName,
