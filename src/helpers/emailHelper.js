@@ -16,6 +16,7 @@ exports.sendToEmail = async (companyName, companyOwnerName, emailTemplate, email
             break;
         case "CompanyInvitation":
             emailSubjectString = `You have been invited to join ${companyName} on the AsyncWorking`;
+            break;
         default:
             emailSubjectString = "Message from AsyncWorking";
     }
