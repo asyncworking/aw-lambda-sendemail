@@ -8,8 +8,10 @@ describe('sendEmailHelper Function', () => {
         const userName = "John Doe";
         const verificationLink = "some link string";
         const templateType = "Verification";
+        const companyName = "company A";
+        const companyOwnerName = "CEO Alice";
 
-        const response = await emailHelper.sendToEmail(emailTemplate, email, userName, verificationLink, templateType, AWS);
+        const response = await emailHelper.sendToEmail(companyName, companyOwnerName, emailTemplate, email, userName, verificationLink, templateType, AWS);
         expect(response).toHaveProperty("email");
         expect(response).toHaveProperty("emailType");
         expect(response).toHaveProperty("timeSent");
