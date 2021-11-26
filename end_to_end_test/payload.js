@@ -7,7 +7,7 @@ exports.default = {
       "body": `{
         "templateType": "Verification",
         "templateS3Bucket": "aw-email-template",
-        "templateS3Key": "verification_email_template.txt",
+        "templateS3Key": "verification_email_template_updated.html",
         "userName": "John Doe",
         "email": "johndoe@test.com",
         "verificationLink": "https://somecode.com"

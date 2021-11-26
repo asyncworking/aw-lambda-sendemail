@@ -9,7 +9,7 @@ awslocal sqs create-queue --queue-name AWRECEIVEQ --region ap-southeast-2
 # Create S3 bucket
 awslocal s3api create-bucket --bucket aw-email-template --region ap-southeast-2
 
-awslocal s3 cp end_to_end_test/s3_bucket_local/verification_email_template.txt s3://aw-email-template
+awslocal s3 cp end_to_end_test/s3_bucket_local/verification_email_template_updated.html s3://aw-email-template
 
 # Delete S3 bucket force
 # awslocal s3 rb s3://aw-email-template --force
