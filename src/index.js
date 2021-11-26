@@ -9,6 +9,7 @@ AWS.config.update({
 
 exports.handler = async (event) => {
   const {
+    emailRecordId,
     email,
     userName,
     companyName,
@@ -26,6 +27,7 @@ exports.handler = async (event) => {
   );
 
   const response = await emailHelper.sendToEmail(
+    emailRecordId,
     companyName,
     companyOwnerName,
     emailTemplateString,

@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-exports.sendToEmail = async (companyName, companyOwnerName, emailTemplate, email, userName, verificationLink, templateType, AWS) => {
+exports.sendToEmail = async (emailRecordId, companyName, companyOwnerName, emailTemplate, email, userName, verificationLink, templateType, AWS) => {
     const sourceEmail = process.env.sourceEmail; //'info@asyncworking.com'
     let emailSubjectString;
     
@@ -55,6 +55,7 @@ exports.sendToEmail = async (companyName, companyOwnerName, emailTemplate, email
     const sqsPromise = await sesPromise.then( sesResult =>{
 
         const messageBody = {
+            emailRecordId: emailRecordId,
             emailType: templateType,
             email: email,
             timeSent: Date.now(),
