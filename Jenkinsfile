@@ -10,6 +10,10 @@ pipeline {
         FUNCTION_NAME = 'random-numbers'
         ZIPFILE = 'random-numbers.zip'
         //REGION= " "      #set var in Jenkins global config
+		withAWSParameterStore(credentialsId: '4b4c942f-2dd7-4c3f-a4ac-0250a775a3df', namePrefixes: 'AW_UAT_VERIFICATION_EMAIL_ROLE', naming: 'basename', regionName: '${AW_REGION}' ){
+			sh ' aws ssm get-parameters --names AW_UAT_VERIFICATION_EMAIL_ROLE --region ${AW_REGION}'
+			echo "${AW_UAT_VERIFICATION_EMAIL_ROLE}"
+		}
     }  
 
     stages {
